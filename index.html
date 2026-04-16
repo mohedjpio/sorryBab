@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html lang="ar-EG" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>عشانك - دايمًا</title>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=El+Messiri:wght@400;500;600;700&family=Jost:wght@200;300;400&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body class="lang-ar">
+  <div class="lang-switcher" id="langSwitcher" role="group" aria-label="Language switcher">
+    <button type="button" class="lang-btn active" data-lang-choice="ar" onclick="setLanguage('ar')">مصري</button>
+    <button type="button" class="lang-btn" data-lang-choice="en" onclick="setLanguage('en')">EN</button>
+  </div>
+
+  <div class="music-player" id="musicPlayer">
+    <button type="button" class="music-btn" id="musicBtn" onclick="toggleMusic()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path id="musicIcon"
+          d="M9 18V5l12-2v13M9 18c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-2c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z" />
+      </svg>
+      <span id="musicLabel">شغل الموسيقى</span>
+    </button>
+    <audio id="bgMusic" loop src="assets/audio/music.mp3" type="audio/mpeg"></audio>
+  </div>
+
+  <section id="intro" class="section-intro active">
+    <div class="intro-stars" id="introStars"></div>
+    <div class="intro-content">
+      <div class="intro-line-top" id="introLineTop"></div>
+      <h1 class="intro-typewriter" id="introText"></h1>
+      <div class="intro-cursor" id="introCursor">|</div>
+      <button type="button" class="btn-start" id="btnStart" onclick="startJourney()"></button>
+    </div>
+    <div class="intro-scroll-hint" id="introScrollHint"></div>
+  </section>
+
+  <section id="hero" class="section hidden">
+    <div class="particles-container" id="heroParticles"></div>
+    <div class="hero-content">
+      <p class="hero-pretext" id="heroPretext"></p>
+      <h2 class="hero-title" id="heroTitle"></h2>
+      <p class="hero-sub" id="heroSub"></p>
+      <div class="hero-divider"></div>
+      <button type="button" class="btn-continue" id="heroContinue" onclick="scrollToSection('flowers')"></button>
+    </div>
+    <div class="hero-glow"></div>
+  </section>
+
+  <section id="flowers" class="section hidden">
+    <div class="petals-container" id="petalsContainer"></div>
+    <div class="flowers-content">
+      <p class="flowers-pre" id="flowersPre"></p>
+      <div class="bouquet-wrapper" id="bouquetWrapper" onclick="revealFlowerMessage()">
+        <div class="bouquet" id="bouquet">
+          <div class="stem main-stem"></div>
+          <div class="stem left-stem"></div>
+          <div class="stem right-stem"></div>
+
+          <div class="flower flower-main" data-delay="0">
+            <div class="petal p1"></div>
+            <div class="petal p2"></div>
+            <div class="petal p3"></div>
+            <div class="petal p4"></div>
+            <div class="petal p5"></div>
+            <div class="petal p6"></div>
+            <div class="center"></div>
+          </div>
+          <div class="flower flower-left" data-delay="0.3">
+            <div class="petal p1"></div>
+            <div class="petal p2"></div>
+            <div class="petal p3"></div>
+            <div class="petal p4"></div>
+            <div class="petal p5"></div>
+            <div class="center"></div>
+          </div>
+          <div class="flower flower-right" data-delay="0.5">
+            <div class="petal p1"></div>
+            <div class="petal p2"></div>
+            <div class="petal p3"></div>
+            <div class="petal p4"></div>
+            <div class="petal p5"></div>
+            <div class="center"></div>
+          </div>
+
+          <div class="leaf leaf-left"></div>
+          <div class="leaf leaf-right"></div>
+        </div>
+        <div class="bouquet-hint" id="bouquetHint"></div>
+      </div>
+
+      <div class="flower-message hidden" id="flowerMessage">
+        <p id="flowerMessageText"></p>
+      </div>
+
+      <button type="button" class="btn-continue" id="flowersContinue" onclick="scrollToSection('memories')"></button>
+    </div>
+  </section>
+
+  <section id="memories" class="section hidden">
+    <div class="memories-bg-blur"></div>
+    <div class="memories-header">
+      <span class="memories-label" id="memoriesLabel"></span>
+      <h2 class="memories-title" id="memoriesTitle"></h2>
+      <p class="memories-subtitle" id="memoriesSubtitle"></p>
+    </div>
+
+    <div class="memories-track-wrapper">
+      <button type="button" class="mem-nav mem-nav-left" aria-label="Previous" onclick="slideMemories(-1)">&#8249;</button>
+      <div class="memories-track" id="memoriesTrack">
+        <div class="memory-card" data-memory-index="0" onclick="openMemory(0)">
+          <div class="memory-img-wrap">
+            <img class="memory-img" src="assets/images/memory1.jpg" alt=""
+              onerror="this.parentNode.classList.add('img-fallback'); this.style.display='none'" />
+            <div class="memory-img-placeholder">&#10022;</div>
+          </div>
+          <div class="memory-info">
+            <span class="memory-date"></span>
+            <h3 class="memory-title-card"></h3>
+            <p class="memory-caption"></p>
+          </div>
+          <div class="memory-hover-glow"></div>
+        </div>
+
+        <div class="memory-card" data-memory-index="1" onclick="openMemory(1)">
+          <div class="memory-img-wrap">
+            <img class="memory-img" src="assets/images/memory2.jpg" alt=""
+              onerror="this.parentNode.classList.add('img-fallback'); this.style.display='none'" />
+            <div class="memory-img-placeholder">&#10022;</div>
+          </div>
+          <div class="memory-info">
+            <span class="memory-date"></span>
+            <h3 class="memory-title-card"></h3>
+            <p class="memory-caption"></p>
+          </div>
+          <div class="memory-hover-glow"></div>
+        </div>
+
+        <div class="memory-card" data-memory-index="2" onclick="openMemory(2)">
+          <div class="memory-img-wrap">
+            <img class="memory-img" src="assets/images/memory3.jpg" alt=""
+              onerror="this.parentNode.classList.add('img-fallback'); this.style.display='none'" />
+            <div class="memory-img-placeholder">&#10022;</div>
+          </div>
+          <div class="memory-info">
+            <span class="memory-date"></span>
+            <h3 class="memory-title-card"></h3>
+            <p class="memory-caption"></p>
+          </div>
+          <div class="memory-hover-glow"></div>
+        </div>
+
+        <div class="memory-card" data-memory-index="3" onclick="openMemory(3)">
+          <div class="memory-img-wrap">
+            <img class="memory-img" src="assets/images/memory4.jpg" alt=""
+              onerror="this.parentNode.classList.add('img-fallback'); this.style.display='none'" />
+            <div class="memory-img-placeholder">&#10022;</div>
+          </div>
+          <div class="memory-info">
+            <span class="memory-date"></span>
+            <h3 class="memory-title-card"></h3>
+            <p class="memory-caption"></p>
+          </div>
+          <div class="memory-hover-glow"></div>
+        </div>
+
+        <div class="memory-card" data-memory-index="4" onclick="openMemory(4)">
+          <div class="memory-img-wrap">
+            <img class="memory-img" src="assets/images/memory5.jpg" alt=""
+              onerror="this.parentNode.classList.add('img-fallback'); this.style.display='none'" />
+            <div class="memory-img-placeholder">&#10022;</div>
+          </div>
+          <div class="memory-info">
+            <span class="memory-date"></span>
+            <h3 class="memory-title-card"></h3>
+            <p class="memory-caption"></p>
+          </div>
+          <div class="memory-hover-glow"></div>
+        </div>
+      </div>
+      <button type="button" class="mem-nav mem-nav-right" aria-label="Next" onclick="slideMemories(1)">&#8250;</button>
+    </div>
+
+    <div class="memories-dots" id="memoryDots">
+      <span class="dot active" onclick="goToMemory(0)"></span>
+      <span class="dot" onclick="goToMemory(1)"></span>
+      <span class="dot" onclick="goToMemory(2)"></span>
+      <span class="dot" onclick="goToMemory(3)"></span>
+      <span class="dot" onclick="goToMemory(4)"></span>
+    </div>
+
+    <button type="button" class="btn-continue" id="memoriesContinue" onclick="scrollToSection('lovenotes')"></button>
+  </section>
+
+  <div class="memory-modal" id="memoryModal" onclick="closeMemory(event)">
+    <div class="modal-inner">
+      <button type="button" class="modal-close" onclick="closeMemory(event)">&times;</button>
+      <div class="modal-img-wrap">
+        <img id="modalImg" src="" alt="" />
+        <div class="modal-img-placeholder" id="modalImgPlaceholder">&#10022;</div>
+      </div>
+      <div class="modal-text">
+        <span class="modal-date" id="modalDate"></span>
+        <h3 class="modal-title" id="modalTitle"></h3>
+        <p class="modal-msg" id="modalMsg"></p>
+      </div>
+    </div>
+  </div>
+
+  <section id="lovenotes" class="section hidden">
+    <div class="lovenotes-bg"></div>
+    <div class="lovenotes-header">
+      <h2 class="lovenotes-title" id="lovenotesTitle"></h2>
+      <p class="lovenotes-hint" id="lovenotesHint"></p>
+    </div>
+    <div class="hearts-field" id="heartsField"></div>
+    <button type="button" class="btn-continue" id="lovenotesContinue" onclick="scrollToSection('apology')"></button>
+  </section>
+
+  <section id="apology" class="section hidden">
+    <div class="apology-bg-particles" id="apologyParticles"></div>
+    <div class="apology-content">
+      <span class="apology-label" id="apologyLabel"></span>
+      <h2 class="apology-title" id="apologyTitle"></h2>
+
+      <div class="apology-letter">
+        <p id="apologyP1"></p>
+        <p id="apologyP2"></p>
+        <p id="apologyP3"></p>
+        <p id="apologyP4"></p>
+        <p class="apology-sign" id="apologySign"></p>
+      </div>
+
+      <div class="apology-buttons">
+        <button type="button" class="btn-forgive" id="btnForgive" onclick="chooseForgive()"></button>
+        <button type="button" class="btn-notyet" id="btnNotYet" onclick="chooseNotYet()"></button>
+      </div>
+
+      <div class="response-message hidden" id="responseMessage"></div>
+    </div>
+  </section>
+
+  <canvas id="confettiCanvas"
+    style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;"></canvas>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
